@@ -144,14 +144,14 @@
 ![image](https://user-images.githubusercontent.com/35085704/160338111-a11cc01d-76e8-4f21-9aa2-77b9b2ad0d96.png) ![image](https://user-images.githubusercontent.com/35085704/160338158-bdae7868-0e33-4dfd-a011-a7d86fbd4ceb.png) ![image](https://user-images.githubusercontent.com/35085704/160338221-a6a333c2-52b0-4767-b39b-c9d99e6cf94e.png) 
 
 ## 어그리게잇으로 묶기 
-![image](https://user-images.githubusercontent.com/35085704/160338265-4ef2675f-6c2e-45ae-8596-09eb0ff30de2.png) ![image](https://user-images.githubusercontent.com/35085704/160338278-dd654553-2f92-49ef-b98b-220d8587c3d3.png) ![image](https://user-images.githubusercontent.com/35085704/160338316-3c44bf02-c708-4671-b84b-52ed5bf6fb46.png) ![image](https://user-images.githubusercontent.com/35085704/160338336-fb93e8f7-c00c-4adc-865f-884cb5678105.png)
+![image](https://user-images.githubusercontent.com/35085704/160338265-4ef2675f-6c2e-45ae-8596-09eb0ff30de2.png) ![image](https://user-images.githubusercontent.com/35085704/160338278-dd654553-2f92-49ef-b98b-220d8587c3d3.png) ![image](https://user-images.githubusercontent.com/35085704/160338316-3c44bf02-c708-4671-b84b-52ed5bf6fb46.png)
 
 '''
 
 '''
 
 ## 바운디드 컨텍스트로 묶기
-![image](https://user-images.githubusercontent.com/35085704/160338374-5d1fa9bc-5fa4-4362-84c0-952752bf487b.png) ![image](https://user-images.githubusercontent.com/35085704/160338394-a999f49b-de1a-4691-885f-9d24be03f597.png) ![image](https://user-images.githubusercontent.com/35085704/160338425-df874ca4-2290-45e5-b079-6add27b7154d.png)
+![image](https://user-images.githubusercontent.com/35085704/160338374-5d1fa9bc-5fa4-4362-84c0-952752bf487b.png) ![image](https://user-images.githubusercontent.com/35085704/160338394-a999f49b-de1a-4691-885f-9d24be03f597.png) 
 
 ## 폴리시 부착
 
