@@ -1,5 +1,7 @@
-# msa-4
-# 온라인 도서 구매 시스템
+# msa 4조
+![image](https://user-images.githubusercontent.com/35085704/160336168-704f0b03-5ce5-4d24-84b1-41a363904cf5.png)
+
+# 예제 - 온라인 도서 구매 시스템
 본 예제는 MSA/DDD/Event Storming/EDA 를 포괄하는 분석/설계/구현/운영 전단계를 커버하도록 구성한 예제입니다. 이는 클라우드 네이티브 애플리케이션의 개발에 요구되는 체크포인트들을 통과하기 위한 예시 답안을 포함합니다.
 
 체크포인트 : https://workflowy.com/s/assessment-check-po/T5YrzcMewfo4J6LW
@@ -126,4 +128,43 @@
 
 # Event Storming 결과
 + MSAEz 로 모델링한 이벤트 스토밍 결과: https://labs.msaez.io/#/storming/RWvnPeZmdwhH2VUyVhPmZ5pZgLw2/4e8fde73cfb97272d06117d1e84f642d
+
+## 이벤트 도출 
+![image](https://user-images.githubusercontent.com/35085704/160337656-ec1eb8f5-7704-4599-87b7-a19bce853c18.png)
+
+## 부적격 이벤트 탈락
+![image](https://user-images.githubusercontent.com/35085704/160337865-99e4a56d-1bde-403a-a66e-5c515a3f2622.png)
+
+'''
+- 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
+    - 주문시>주문전달완료, 주문시>책선택완료 :  UI 의 이벤트이지, 업무적인 의미의 이벤트가 아니라서 제외
+'''
+
+## 액터, 커맨드 부착하여 읽기 좋게 
+![image](https://user-images.githubusercontent.com/35085704/160338111-a11cc01d-76e8-4f21-9aa2-77b9b2ad0d96.png) ![image](https://user-images.githubusercontent.com/35085704/160338158-bdae7868-0e33-4dfd-a011-a7d86fbd4ceb.png) ![image](https://user-images.githubusercontent.com/35085704/160338221-a6a333c2-52b0-4767-b39b-c9d99e6cf94e.png) 
+
+## 어그리게잇으로 묶기 
+![image](https://user-images.githubusercontent.com/35085704/160338265-4ef2675f-6c2e-45ae-8596-09eb0ff30de2.png) ![image](https://user-images.githubusercontent.com/35085704/160338278-dd654553-2f92-49ef-b98b-220d8587c3d3.png) ![image](https://user-images.githubusercontent.com/35085704/160338316-3c44bf02-c708-4671-b84b-52ed5bf6fb46.png) ![image](https://user-images.githubusercontent.com/35085704/160338336-fb93e8f7-c00c-4adc-865f-884cb5678105.png)
+
+'''
+
+'''
+
+## 바운디드 컨텍스트로 묶기
+![image](https://user-images.githubusercontent.com/35085704/160338374-5d1fa9bc-5fa4-4362-84c0-952752bf487b.png) ![image](https://user-images.githubusercontent.com/35085704/160338394-a999f49b-de1a-4691-885f-9d24be03f597.png) ![image](https://user-images.githubusercontent.com/35085704/160338425-df874ca4-2290-45e5-b079-6add27b7154d.png)
+
+## 폴리시 부착
+
+## 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
+
+## 완성된 1차 모형
+
+## 1차 완성본에 대한 기능적/비기능적 요구사항을 커버하는지 검증
+
+## 모델 수정
+
+## 비기능 요구사항에 대한 검증
+
+## 헥사고날 아키텍처 다이어그램 도출
+
 
