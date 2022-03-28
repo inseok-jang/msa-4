@@ -209,3 +209,42 @@
 - 서브 도메인과 바운디드 컨텍스트의 분리:  각 팀의 KPI 별로 아래와 같이 관심 구현 스토리를 나눠가짐
 ```
 
+# 구현:
+분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 스프링부트와 자바로 구현하였다. 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 808n 이다)
+
+```
+cd app
+mvn spring-boot:run
+
+cd pay
+mvn spring-boot:run 
+
+cd store
+mvn spring-boot:run  
+
+cd delivery
+mvn spring-boot:run  
+```
+
+## CQRS
+
+## API Gateway
+
+## Correlation
+
+## DDD의 적용
+
+## 동기식 호출 (Sync) 와 Fallback 처리
+
+## 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트
+
+# 운영
+## CI/CD 설정
+
+## 동기식 호출 / 서킷 브레이킹 / 장애격리
+
+## 무정지 재배포 
+
+## Self-healing (Liveness Probe)
+
+## Config Map/ Persistence Volume
