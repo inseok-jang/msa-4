@@ -1,12 +1,10 @@
 # msa-4
 # 온라인 도서 구매 시스템
-------------
 본 예제는 MSA/DDD/Event Storming/EDA 를 포괄하는 분석/설계/구현/운영 전단계를 커버하도록 구성한 예제입니다. 이는 클라우드 네이티브 애플리케이션의 개발에 요구되는 체크포인트들을 통과하기 위한 예시 답안을 포함합니다.
 
 체크포인트 : https://workflowy.com/s/assessment-check-po/T5YrzcMewfo4J6LW
 
 # Table of Contents 
-------------
 + 서비스 시나리오
 + 체크포인트
 + 분석/설계
@@ -23,7 +21,7 @@
   + 무정지 재배포
 
 # 서비스 시나리오
-------------
+
 ### 기능적 요구사항
   1. 서점 점주가 책을 등록/수정/삭제한다.
   2. 구매자가 책을 선택하여 구매한다.
@@ -48,7 +46,6 @@
     ii. 배송상태가 상태가 바뀔 때마다 메시지로 알림을 줄 수 있어야 한다 [Event driven]
 
 # 체크포인트
-------------
 + 분석 설계
 
   + 이벤트스토밍:
@@ -121,16 +118,12 @@
       + Contract Test : 자동화된 경계 테스트를 통하여 구현 오류나 API 계약위반를 미리 차단 가능한가?
 
 # 분석/설계
-------------
 ## AS-IS 조직 
-------------
 ![image](https://user-images.githubusercontent.com/35085704/160333984-b35900c7-3066-4c96-846d-5ec0a0356496.png)
 
 ## TO-BE 조직 (Vertically-Aligned)
-------------
 ![image](https://user-images.githubusercontent.com/35085704/160335058-408f670e-46f3-4e57-8a77-c969ba126009.png)
 
 # Event Storming 결과
-------------
 + MSAEz 로 모델링한 이벤트 스토밍 결과: https://labs.msaez.io/#/storming/RWvnPeZmdwhH2VUyVhPmZ5pZgLw2/4e8fde73cfb97272d06117d1e84f642d
 
