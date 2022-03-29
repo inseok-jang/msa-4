@@ -119,7 +119,8 @@
 ![image](https://user-images.githubusercontent.com/35085704/160335058-408f670e-46f3-4e57-8a77-c969ba126009.png)
 
 # Event Storming 결과
-+ MSAEz 로 모델링한 이벤트 스토밍 결과: https://labs.msaez.io/#/storming/RWvnPeZmdwhH2VUyVhPmZ5pZgLw2/4e8fde73cfb97272d06117d1e84f642d
+> MSAEz 로 모델링한 이벤트 스토밍 결과: 
+> https://labs.msaez.io/#/storming/RWvnPeZmdwhH2VUyVhPmZ5pZgLw2/4e8fde73cfb97272d06117d1e84f642d
 
 ## 이벤트 도출 
 ![image](https://user-images.githubusercontent.com/35085704/160337656-ec1eb8f5-7704-4599-87b7-a19bce853c18.png)
@@ -127,10 +128,8 @@
 ## 부적격 이벤트 탈락
 ![image](https://user-images.githubusercontent.com/35085704/160337865-99e4a56d-1bde-403a-a66e-5c515a3f2622.png)
 
-```
-- 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
-    - 주문시>주문전달완료, 주문시>책선택완료 :  UI 의 이벤트이지, 업무적인 의미의 이벤트가 아니라서 제외
-```
+> 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
+> 주문시>주문전달완료, 주문시>책선택완료 :  UI 의 이벤트이지, 업무적인 의미의 이벤트가 아니라서 제외
 
 ## 액터, 커맨드 부착하여 읽기 좋게 
 ![image](https://user-images.githubusercontent.com/35085704/160338111-a11cc01d-76e8-4f21-9aa2-77b9b2ad0d96.png) ![image](https://user-images.githubusercontent.com/35085704/160338158-bdae7868-0e33-4dfd-a011-a7d86fbd4ceb.png) ![image](https://user-images.githubusercontent.com/35085704/160338221-a6a333c2-52b0-4767-b39b-c9d99e6cf94e.png) 
@@ -138,19 +137,15 @@
 ## 어그리게잇으로 묶기 
 ![image](https://user-images.githubusercontent.com/35085704/160338265-4ef2675f-6c2e-45ae-8596-09eb0ff30de2.png) ![image](https://user-images.githubusercontent.com/35085704/160338278-dd654553-2f92-49ef-b98b-220d8587c3d3.png) ![image](https://user-images.githubusercontent.com/35085704/160338316-3c44bf02-c708-4671-b84b-52ed5bf6fb46.png)
 
-```
-- front의 Order, store 의 주문처리, payment 의 결제이력, delivery의 배송현황은 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
-```
+> front의 Order, store 의 주문처리, payment 의 결제이력, delivery의 배송현황은 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
 
 ## 바운디드 컨텍스트로 묶기
 ![image](https://user-images.githubusercontent.com/35085704/160338374-5d1fa9bc-5fa4-4362-84c0-952752bf487b.png) ![image](https://user-images.githubusercontent.com/35085704/160338394-a999f49b-de1a-4691-885f-9d24be03f597.png) 
 
-```
-- 도메인 서열 분리 
-    - Core Domain:  app(front), store : 없어서는 안될 핵심 서비스이며, 연간 Up-time SLA 수준을 99.999% 목표, 배포주기는 app 의 경우 1주일 1회 미만, store 의 경우 1개월 1회 미만
-    - Supporting Domain:   marketing, customer : 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
-    - General Domain: pay : 결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 
-```
+> 도메인 서열 분리 
+>  - Core Domain:  app(front), store : 없어서는 안될 핵심 서비스이며, 연간 Up-time SLA 수준을 99.999% 목표, 배포주기는 app 의 경우 1주일 1회 미만, store 의 경우 1개월 1회 미만
+>  - Supporting Domain:   marketing, customer : 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
+>  - General Domain: pay : 결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 
 
 ## 폴리시 부착
 ![image](https://user-images.githubusercontent.com/35085704/160339429-1760c79e-e2f5-4e5b-852f-1bf9d3a7299f.png)
@@ -158,49 +153,42 @@
 ## 완성된 1차 모형
 ![image](https://user-images.githubusercontent.com/35085704/160339612-0078086d-2b7c-4a1a-81b6-a8cbe2da0e41.png)
 
-```
-- View Model 및 폴리시의 이동과 컨텍스트 매핑 추가
-```
+> View Model 및 폴리시의 이동과 컨텍스트 매핑 추가
+
 
 ## 1차 완성본에 대한 기능적/비기능적 요구사항을 커버하는지 검증
 ![image](https://user-images.githubusercontent.com/35085704/160340044-8344cc1a-a433-4b39-bbe6-dd2c1ea85bd5.png)
 
-```
-### 기능적 요구사항
-  1. 서점 점주가 책을 등록/수정/삭제한다. (ok)
-  2. 구매자가 책을 선택하여 구매한다. (ok)
-  3. 주문과 동시에 결제가 진행된다. (ok)
-  4. 결제가 되면 구매 내역 (Message)이 전달된다. (not yet)
-  5. 판매자가 주문을 확인하여 배송을 시작한다. (ok)
-  6. 고객이 주문을 취소할 수 있다. (ok)
-  7. 주문이 취소되면 배송이 취소된다. (not yet)
-  8. 주문이 취소될 경우 취소 내역 (Message)이 전달된다. (not yet)
-  9. 배송상태가 바뀔 때 마다 알림을 보낸다. (not yet)
-```
+> 기능적 요구사항
+>  1. 서점 점주가 책을 등록/수정/삭제한다. (ok)
+>  2. 구매자가 책을 선택하여 구매한다. (ok)
+>  3. 주문과 동시에 결제가 진행된다. (ok)
+>  4. 결제가 되면 구매 내역 (Message)이 전달된다. (not yet)
+>  5. 판매자가 주문을 확인하여 배송을 시작한다. (ok)
+>  6. 고객이 주문을 취소할 수 있다. (ok)
+>  7. 주문이 취소되면 배송이 취소된다. (not yet)
+>  8. 주문이 취소될 경우 취소 내역 (Message)이 전달된다. (not yet)
+>  9. 배송상태가 바뀔 때 마다 알림을 보낸다. (not yet)
 
 
 ## 모델 수정
 ![image](https://user-images.githubusercontent.com/35085704/160341656-3b89ce47-5c5d-44cf-8618-5399dbe7397a.png)
-```
-- 수정된 모델은 모든 요구사항을 커버함
-```
+> 수정된 모델은 모든 요구사항을 커버함
 
 ## 비기능 요구사항에 대한 검증
-```
-- 마이크로 서비스를 넘나드는 시나리오에 대한 트랜잭션 처리
-    - 고객 주문시 결제처리:  결제가 완료되지 않은 주문은 미처리됨에 따라, ACID 트랜잭션 적용. 주문완료시 결제처리에 대해서는 Request-Response 방식 처리.
-    - 결제 완료시 점주연결 및 배송처리:  App(front) 에서 Store 마이크로서비스로 주문요청이 전달되는 과정에 있어서 Store 마이크로 서비스가 별도의 배포주기를 가지기 때문에 Eventual Consistency 방식으로 트랜잭션 처리함.
-    - 나머지 모든 inter-microservice 트랜잭션: 주문상태, 배달상태 등 모든 이벤트에 대해 카톡을 처리하는 등, 데이터 일관성의 시점이 크리티컬하지 않은 모든 경우가 대부분이라 판단, Eventual Consistency 를 기본으로 채택함.
-```
+> 마이크로 서비스를 넘나드는 시나리오에 대한 트랜잭션 처리
+>  - 고객 주문시 결제처리:  결제가 완료되지 않은 주문은 미처리됨에 따라, ACID 트랜잭션 적용. 주문완료시 결제처리에 대해서는 Request-Response 방식 처리.
+>  - 결제 완료시 점주연결 및 배송처리:  App(front) 에서 Store 마이크로서비스로 주문요청이 전달되는 과정에 있어서 Store 마이크로 서비스가 별도의 배포주기를 가지기 때문에 Eventual > Consistency 방식으로 트랜잭션 처리함.
+>  - 나머지 모든 inter-microservice 트랜잭션: 주문상태, 배달상태 등 모든 이벤트에 대해 카톡을 처리하는 등, 데이터 일관성의 시점이 크리티컬하지 않은 모든 경우가 대부분이라 판단, Eventual Consistency 를 기본으로 채택함.
 
 ## 헥사고날 아키텍처 다이어그램 도출
 <img width="868" alt="image" src="https://user-images.githubusercontent.com/54835264/160537929-f9e1d9b8-dae3-4b73-b569-e8b1502b04b7.png">
 
-```
-- Chris Richardson, MSA Patterns 참고하여 Inbound adaptor와 Outbound adaptor를 구분함
-- 호출관계에서 PubSub 과 Req/Resp 를 구분함
-- 서브 도메인과 바운디드 컨텍스트의 분리:  각 팀의 KPI 별로 아래와 같이 관심 구현 스토리를 나눠가짐
-```
+
+> - Chris Richardson, MSA Patterns 참고하여 Inbound adaptor와 Outbound adaptor를 구분함
+> - 호출관계에서 PubSub 과 Req/Resp 를 구분함
+> - 서브 도메인과 바운디드 컨텍스트의 분리:  각 팀의 KPI 별로 아래와 같이 관심 구현 스토리를 나눠가짐
+
 
 # 구현:
 분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 스프링부트와 자바로 구현하였다. 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 808n 이다)
@@ -220,12 +208,12 @@ mvn spring-boot:run
 ```
 
 ## Saga 
-**이벤트 Publish / Subscribe**
 
 1. order 서비스의 이벤트 Publish
 http localhost:8081/orders productId=1 productName="MSA Book" qty=3
 
-OrderApplication에서 Run 실행 후 kafka Consumer에서 이벤트 확인
+2. OrderApplication에서 Run 실행 후 kafka Consumer에서 이벤트 확인
+
 ![image](https://user-images.githubusercontent.com/102270635/160508329-a9fb56ef-f5cb-4213-aaad-abb944889c7c.png)
 
 ![image](https://user-images.githubusercontent.com/102270635/160508343-4d4dff99-49a0-4e09-82cf-42f458cd6d02.png)
@@ -311,7 +299,8 @@ siege -c2 -t10S  -v --content-type "application/json" 'http://localhost:8081/ord
 
 
 4. fallback 처리를 하여 유연하게 대처
-<fallback 처리 후>
+
+<fallback 처리 후> 
 ![image](https://user-images.githubusercontent.com/102270635/160507989-f5f3462d-ca00-4aa8-8310-73dce9b3d419.png)
 
 
