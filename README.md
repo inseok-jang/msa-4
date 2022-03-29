@@ -269,7 +269,8 @@ OrderPlaced, DeliveryStarted, OrderCancelled, DeliveryCancelled 이벤트 발생
 ## Correlation
 > BookStore 프로젝트에서는 PolicyHandler에서 처리 시 어떤 건에 대한 처리인지를 구별하기 위한 Correlation-key 구현을 이벤트 클래스 안의 변수로 전달받아 서비스간 연관된 처리를 정확하게 구현
 
-1. 주문(Order)을 하면 동시에 배송(Delivery)등의 서비스 상태가 변경되고, 주문취소를 수행하면 다시 배송(Delivery)등의 서비스 상태값 등의 데이터가 적당한 상태로 변경됨
+1. 주문(Order)을 하면 동시에 배송(Delivery) 서비스 상태가 변경됨
+2. 주문취소를 수행하면 다시 배송(Delivery) 서비스 상태가 변경됨
 
 <img width="450" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160517019-7abca190-01c3-4edf-b67c-54d9ab4dfafd.png">
 <img width="450" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160517028-17e9db06-da6c-4360-9ce9-070b47870e6e.png">
