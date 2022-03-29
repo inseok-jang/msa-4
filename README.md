@@ -230,6 +230,7 @@ mvn spring-boot:run
 주문상태와 배송상태 등 총 Status에 대해서 확인 할 수 있도록 CQRS로 구현하였다.
 비동기식으로 처리되어 발행된 이벤트 기반 Kafka를 통해 수신/처리 되어 별도 OrderStatus table에서 관리한다.
 + OrderStatus
+
 ![image](https://user-images.githubusercontent.com/77971366/160515900-2d93c9f1-7c0d-4888-a04d-e5d6f2e03bb5.png)
 
 + OrderView 서비스의 PolicyHandler를 통해 구현
