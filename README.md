@@ -241,6 +241,8 @@ mvn spring-boot:run
 
 + OrderStatus 조회시 주문상태/배달상태 등의 정보를 종합적으로 알 수 있다.
 - 책 주문
+<img width="413" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160517424-7a10b354-d459-4d32-ad88-a2c8d9bf2457.png">
+
 ![image](https://user-images.githubusercontent.com/77971366/160516208-6d40f2c3-1715-4b59-a613-782a1b017e61.png)
 ![image](https://user-images.githubusercontent.com/77971366/160516279-47f052c6-005a-4ea6-9027-822a2c5dc09a.png)
 
@@ -258,6 +260,7 @@ mvn spring-boot:run
 
 ## API Gateway
 Spring Gateway 서비스를 추가후 application.yaml 내에 각 마이크로서비스의 routes를 추가함
+
 ![image](https://user-images.githubusercontent.com/77971366/160516379-da586d99-6e89-4d9a-9766-6ad7bc4d58dc.png)
 
 ## Correlation
