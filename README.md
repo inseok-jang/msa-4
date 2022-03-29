@@ -227,6 +227,27 @@ mvn spring-boot:run
 ```
 
 ## CQRS
+주문상태와 배송상태 등 총 Status에 대해서 확인 할 수 있도록 CQRS로 구현하였다.
+비동기식으로 처리되어 발행된 이벤트 기반 Kafka를 통해 수신/처리 되어 별도 OrderStatus table에서 관리한다.
++ OrderStatus
+![image](https://user-images.githubusercontent.com/77971366/160515900-2d93c9f1-7c0d-4888-a04d-e5d6f2e03bb5.png)
+
++ OrderView 서비스의 PolicyHandler를 통해 구현
++ OrderPlaced, DeliveryStarted, OrderCancelled. DeliveryCancelled 이벤트 발생시, Pub/Sub 기반으로 별도 OrderStatus 테이블에 저장
+
+![image](https://user-images.githubusercontent.com/77971366/160516067-c82a0a47-1abf-439d-a5b1-509be67c363a.png)
+![image](https://user-images.githubusercontent.com/77971366/160516122-8c193862-edfe-48b4-a68c-704010833b4d.png)
+
++ OrderStatus 조회시 주문상태/배달상태 등의 정보를 종합적으로 알 수 있다.
+- 책 주문
+![image](https://user-images.githubusercontent.com/77971366/160516208-6d40f2c3-1715-4b59-a613-782a1b017e61.png)
+![image](https://user-images.githubusercontent.com/77971366/160516279-47f052c6-005a-4ea6-9027-822a2c5dc09a.png)
+
+- 책 주문취소, 배달취소
+![image](https://user-images.githubusercontent.com/77971366/160516303-5faf006b-3510-404e-a623-336d09152563.png)
+![image](https://user-images.githubusercontent.com/77971366/160516331-16237f0c-3460-435a-bae0-d00160c5e8be.png)
+
+
 1. Kafka 확인
 ![image](https://user-images.githubusercontent.com/102270635/160508295-8632d410-26ae-4230-86f8-821c1919ad45.png)
 
@@ -235,8 +256,16 @@ mvn spring-boot:run
 ![image](https://user-images.githubusercontent.com/102270635/160508299-ab906a1e-5a87-4fd4-9886-c38132625027.png)
 
 ## API Gateway
+Spring Gateway 서비스를 추가후 application.yaml 내에 각 마이크로서비스의 routes를 추가함
+![image](https://user-images.githubusercontent.com/77971366/160516379-da586d99-6e89-4d9a-9766-6ad7bc4d58dc.png)
 
 ## Correlation
+BookStore 프로젝트에서는 PolicyHandler에서 처리 시 어떤 건에 대한 처리인지를 구별하기 위한 Correlation-key 구현을 이벤트 클래스 안의 변수로 전달받아 서비스간 연관된 처리를 정확하게 구현하고 있다.
+주문(Order)을 하면 동시에 배송(Delivery)등의 서비스 상태가 변경되고, 주문취소를 수행하면 다시 배송(Delivery)등의 서비스 상태값 등의 데이터가 적당한 상태로 변경된다.
+
+![image](https://user-images.githubusercontent.com/77971366/160517019-7abca190-01c3-4edf-b67c-54d9ab4dfafd.png)
+![image](https://user-images.githubusercontent.com/77971366/160517028-17e9db06-da6c-4360-9ce9-070b47870e6e.png)
+
 
 ## DDD의 적용
 
