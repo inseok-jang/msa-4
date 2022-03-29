@@ -274,8 +274,6 @@ BookStore 프로젝트에서는 PolicyHandler에서 처리 시 어떤 건에 대
 ## DDD의 적용
 
 ## 동기식 호출 (Sync) 와 Fallback 처리
-
-## 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트
 **Req/Res 연동**
 
 1. 주문 생성
@@ -302,7 +300,7 @@ siege -c2 -t10S  -v --content-type "application/json" 'http://localhost:8081/ord
 4. fallback 처리를 하여 유연하게 대처
 <fallback 처리 후>
 ![image](https://user-images.githubusercontent.com/102270635/160507989-f5f3462d-ca00-4aa8-8310-73dce9b3d419.png)
-
+## 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트
 
 # 운영
 ## Deploy
