@@ -225,19 +225,6 @@ mvn spring-boot:run
 cd delivery
 mvn spring-boot:run  
 
-**이벤트 Publish / Subscribe**
-
-1. order 서비스의 이벤트 Publish
-http localhost:8081/orders productId=1 productName="MSA Book" qty=3
-
-OrderApplication에서 Run 실행 후 kafka Consumer에서 이벤트 확인
-![image](https://user-images.githubusercontent.com/102270635/160508329-a9fb56ef-f5cb-4213-aaad-abb944889c7c.png)
-
-![image](https://user-images.githubusercontent.com/102270635/160508343-4d4dff99-49a0-4e09-82cf-42f458cd6d02.png)
-
-![image](https://user-images.githubusercontent.com/102270635/160508354-68279a2a-6799-4778-aa30-262fb7747a7d.png)
-
-
 ## CQRS
 주문상태와 배송상태 등 총 Status에 대해서 확인 할 수 있도록 CQRS로 구현하였다.
 비동기식으로 처리되어 발행된 이벤트 기반 Kafka를 통해 수신/처리 되어 별도 OrderStatus table에서 관리한다.
