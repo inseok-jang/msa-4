@@ -305,7 +305,7 @@ siege -c2 -t10S  -v --content-type "application/json" 'http://localhost:8081/ord
 
 
 ## API Gateway
-Spring Gateway 서비스를 추가후 application.yaml 내에 각 마이크로서비스의 routes를 추가함
+1. Spring Gateway 서비스를 추가후 application.yaml 내에 각 마이크로서비스의 routes를 추가함
 
 ```
 server:
