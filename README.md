@@ -250,14 +250,6 @@ mvn spring-boot:run
 ![image](https://user-images.githubusercontent.com/77971366/160516303-5faf006b-3510-404e-a623-336d09152563.png)
 ![image](https://user-images.githubusercontent.com/77971366/160516331-16237f0c-3460-435a-bae0-d00160c5e8be.png)
 
-
-1. Kafka 확인
-![image](https://user-images.githubusercontent.com/102270635/160508295-8632d410-26ae-4230-86f8-821c1919ad45.png)
-
-
-2. 주문상태 배송상태 조회
-![image](https://user-images.githubusercontent.com/102270635/160508299-ab906a1e-5a87-4fd4-9886-c38132625027.png)
-
 ## API Gateway
 Spring Gateway 서비스를 추가후 application.yaml 내에 각 마이크로서비스의 routes를 추가함
 
