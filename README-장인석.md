@@ -1,5 +1,5 @@
 ## Deploy
-1. AWS CodeBuild 를 통한 서비스 배포
+1. AWS CodeBuild 를 통한 store, delivery 서비스 배포
 <img width="1338" alt="스크린샷 2022-03-29 오전 10 58 44" src="https://user-images.githubusercontent.com/54835264/160518739-c13292be-827d-4098-be67-6a05230f4c94.png">
 <img width="1338" alt="스크린샷 2022-03-29 오전 10 57 59" src="https://user-images.githubusercontent.com/54835264/160518779-b748c2c3-3369-4d24-96fc-84de25ba10d3.png">
 
@@ -62,7 +62,16 @@ livenessProbe:
 <img width="669" alt="스크린샷 2022-03-28 오후 10 33 29" src="https://user-images.githubusercontent.com/54835264/160519225-4a0b47f6-91c1-4edb-a643-7ef9ba0e9ba5.png">
 
 ## Zero-Downtime Deploy (Readiness Probe)
-1. Readiness Probe 설정 후 재배포 실행
+1. HPA 제거
+```
+kubectl delete hpa team4-store
+```
+
+2. Readiness Probe 미설정 배포 시 siege 테스트 결과가 Availability 69.94% 임을 확인
+<img width="379" alt="스크린샷 2022-03-28 오후 9 53 24" src="https://user-images.githubusercontent.com/54835264/160519270-2d68512b-2b95-40a7-aaf1-88347542b249.png">
+
+
+2. Readiness Probe 설정 후 재배포 실행
 ```
 readinessProbe:
   httpGet:
@@ -74,9 +83,7 @@ readinessProbe:
   failureThreshold: 10
 ```
 
-2. 
-<img width="379" alt="스크린샷 2022-03-28 오후 9 53 24" src="https://user-images.githubusercontent.com/54835264/160519270-2d68512b-2b95-40a7-aaf1-88347542b249.png">
-
+3. Readiness Probe 설정 이후 배포 시 siege 테스트 결과가 Availability 100% 임을 확인
 <img width="981" alt="스크린샷 2022-03-28 오후 10 00 03" src="https://user-images.githubusercontent.com/54835264/160519277-39c82daa-3a59-4794-8670-eae92f55a328.png">
 
 
