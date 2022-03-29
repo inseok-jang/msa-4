@@ -11,16 +11,8 @@
 + 체크포인트
 + 분석/설계
 + 구현
-  + DDD 의 적용
-  + 폴리글랏 퍼시스턴스
-  + 폴리글랏 프로그래밍
-  + 동기식 호출 과 Fallback 처리
-  + 비동기식 호출 과 Eventual Consistency
 + 운영
-  + CI/CD 설정
-  + 동기식 호출 / 서킷 브레이킹 / 장애격리
-  + 오토스케일 아웃
-  + 무정지 재배포
+
 
 # 서비스 시나리오
 
@@ -227,6 +219,7 @@ cd delivery
 mvn spring-boot:run  
 ```
 
+## Saga 
 **이벤트 Publish / Subscribe**
 
 1. order 서비스의 이벤트 Publish
@@ -242,9 +235,10 @@ OrderApplication에서 Run 실행 후 kafka Consumer에서 이벤트 확인
 
 
 ## CQRS
-주문상태와 배송상태 등 총 Status에 대해서 확인 할 수 있도록 CQRS로 구현하였다.
-비동기식으로 처리되어 발행된 이벤트 기반 Kafka를 통해 수신/처리 되어 별도 OrderStatus table에서 관리한다.
-+ OrderStatus
+> 주문상태와 배송상태 등 총 Status에 대해서 확인 할 수 있도록 CQRS로 구현하였다.
+> 비동기식으로 처리되어 발행된 이벤트 기반 Kafka를 통해 수신/처리 되어 별도 OrderStatus table에서 관리한다.
+
+1. OrderStatus Entity
 
 ```
 @Entity
@@ -264,21 +258,62 @@ public class OrderStatus {
 }
 ```
 
-+ OrderView 서비스의 PolicyHandler를 통해 구현
-+ OrderPlaced, DeliveryStarted, OrderCancelled. DeliveryCancelled 이벤트 발생시, Pub/Sub 기반으로 별도 OrderStatus 테이블에 저장
+2. OrderView 서비스의 PolicyHandler를 통해 구현
+OrderPlaced, DeliveryStarted, OrderCancelled, DeliveryCancelled 이벤트 발생시, Pub/Sub 기반으로 별도 OrderStatus 테이블에 저장
 
 ![image](https://user-images.githubusercontent.com/77971366/160516067-c82a0a47-1abf-439d-a5b1-509be67c363a.png)
 ![image](https://user-images.githubusercontent.com/77971366/160516122-8c193862-edfe-48b4-a68c-704010833b4d.png)
 
-+ OrderStatus 조회시 주문상태/배달상태 등의 정보를 종합적으로 알 수 있다.
-- 책 주문
+3. OrderStatus 조회시 주문상태/배달상태 등의 정보를 종합적으로 확인
+
+<책 주문>
+
 <img width="413" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160517424-7a10b354-d459-4d32-ad88-a2c8d9bf2457.png">
 
 <img width="413" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160516279-47f052c6-005a-4ea6-9027-822a2c5dc09a.png">
 
 
-- 책 주문취소, 배달취소
+<책 주문취소, 배달취소>
+
 <img width="413" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160516331-16237f0c-3460-435a-bae0-d00160c5e8be.png">
+
+
+## Correlation
+> BookStore 프로젝트에서는 PolicyHandler에서 처리 시 어떤 건에 대한 처리인지를 구별하기 위한 Correlation-key 구현을 이벤트 클래스 안의 변수로 전달받아 서비스간 연관된 처리를 정확하게 구현
+
+1. 주문(Order)을 하면 동시에 배송(Delivery)등의 서비스 상태가 변경되고, 주문취소를 수행하면 다시 배송(Delivery)등의 서비스 상태값 등의 데이터가 적당한 상태로 변경됨
+
+<img width="450" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160517019-7abca190-01c3-4edf-b67c-54d9ab4dfafd.png">
+<img width="450" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160517028-17e9db06-da6c-4360-9ce9-070b47870e6e.png">
+
+
+## Req/Resp / Circuit Breaker
+
+1. 주문 생성
+
+http localhost:8081/orders productId=1 quantity=3 customerId="sunghan.lee@hanwha.com" customerName="Lee" customerAddr="seoul"
+
+2. 배송 확인
+
+http localhost:8082/deliveries
+![image](https://user-images.githubusercontent.com/102270635/160507815-d00e48e4-dcc1-47c6-acd3-750818c1047a.png)
+
+
+3. 부하 툴을 사용하여 주문 생성
+
+siege -c2 -t10S  -v --content-type "application/json" 'http://localhost:8081/orders POST {"productId":2, "quantity":1}
+
+<부하 전>
+![image](https://user-images.githubusercontent.com/102270635/160507930-4c679192-cbf2-419b-a275-30496384bcd1.png)
+
+<부하 후>
+![image](https://user-images.githubusercontent.com/102270635/160507945-1201381f-8d3e-4787-8c26-7810eded63b0.png)
+
+
+4. fallback 처리를 하여 유연하게 대처
+<fallback 처리 후>
+![image](https://user-images.githubusercontent.com/102270635/160507989-f5f3462d-ca00-4aa8-8310-73dce9b3d419.png)
+
 
 ## API Gateway
 Spring Gateway 서비스를 추가후 application.yaml 내에 각 마이크로서비스의 routes를 추가함
@@ -323,52 +358,12 @@ spring:
 ```
 
 
-## Correlation
-BookStore 프로젝트에서는 PolicyHandler에서 처리 시 어떤 건에 대한 처리인지를 구별하기 위한 Correlation-key 구현을 이벤트 클래스 안의 변수로 전달받아 서비스간 연관된 처리를 정확하게 구현하고 있다.
-주문(Order)을 하면 동시에 배송(Delivery)등의 서비스 상태가 변경되고, 주문취소를 수행하면 다시 배송(Delivery)등의 서비스 상태값 등의 데이터가 적당한 상태로 변경된다.
-
-![image](https://user-images.githubusercontent.com/77971366/160517019-7abca190-01c3-4edf-b67c-54d9ab4dfafd.png)
-![image](https://user-images.githubusercontent.com/77971366/160517028-17e9db06-da6c-4360-9ce9-070b47870e6e.png)
-
-
-## DDD의 적용
-
-## 동기식 호출 (Sync) 와 Fallback 처리
-**Req/Res 연동**
-
-1. 주문 생성
-http localhost:8081/orders productId=1 quantity=3 customerId="sunghan.lee@hanwha.com" customerName="Lee" customerAddr="seoul"
-![image](https://user-images.githubusercontent.com/102270635/160507856-40a69811-e01d-430f-a2f5-e2313cc2608b.png)
-
-
-
-2. 배송 확인
-http localhost:8082/deliveries
-![image](https://user-images.githubusercontent.com/102270635/160507815-d00e48e4-dcc1-47c6-acd3-750818c1047a.png)
-
-
-3. 부하 툴을 사용하여 주문 생성
-siege -c2 -t10S  -v --content-type "application/json" 'http://localhost:8081/orders POST {"productId":2, "quantity":1}
-
-<부하 전>
-![image](https://user-images.githubusercontent.com/102270635/160507930-4c679192-cbf2-419b-a275-30496384bcd1.png)
-
-<부하 후>
-![image](https://user-images.githubusercontent.com/102270635/160507945-1201381f-8d3e-4787-8c26-7810eded63b0.png)
-
-
-4. fallback 처리를 하여 유연하게 대처
-<fallback 처리 후>
-![image](https://user-images.githubusercontent.com/102270635/160507989-f5f3462d-ca00-4aa8-8310-73dce9b3d419.png)
-## 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트
-
 # 운영
 ## Deploy
 1. AWS CodeBuild 를 통한 store, delivery 서비스 배포
 <img width="1338" alt="스크린샷 2022-03-29 오전 10 58 44" src="https://user-images.githubusercontent.com/54835264/160518739-c13292be-827d-4098-be67-6a05230f4c94.png">
 <img width="1338" alt="스크린샷 2022-03-29 오전 10 57 59" src="https://user-images.githubusercontent.com/54835264/160518779-b748c2c3-3369-4d24-96fc-84de25ba10d3.png">
 
-## 동기식 호출 / 서킷 브레이킹 / 장애격리
 
 ## AutoScale (HPA)
 1. 컨터이너 리소스 CPU 200m 설정
