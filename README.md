@@ -247,7 +247,6 @@ mvn spring-boot:run
 ![image](https://user-images.githubusercontent.com/77971366/160516279-47f052c6-005a-4ea6-9027-822a2c5dc09a.png)
 
 - 책 주문취소, 배달취소
-![image](https://user-images.githubusercontent.com/77971366/160516303-5faf006b-3510-404e-a623-336d09152563.png)
 ![image](https://user-images.githubusercontent.com/77971366/160516331-16237f0c-3460-435a-bae0-d00160c5e8be.png)
 
 ## API Gateway
