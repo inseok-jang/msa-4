@@ -246,7 +246,23 @@ OrderApplication에서 Run 실행 후 kafka Consumer에서 이벤트 확인
 비동기식으로 처리되어 발행된 이벤트 기반 Kafka를 통해 수신/처리 되어 별도 OrderStatus table에서 관리한다.
 + OrderStatus
 
-![image](https://user-images.githubusercontent.com/77971366/160515900-2d93c9f1-7c0d-4888-a04d-e5d6f2e03bb5.png)
+```
+@Entity
+public class OrderStatus {
+    // get from order event
+    @Id
+    private Long orderId;
+    private Long bookId;
+    private Integer qty;
+    private String bookName;
+    private String orderStatus;
+
+    // get from delivery event
+    private Long deliveryId;
+    private String deliveryStatus;
+
+}
+```
 
 + OrderView 서비스의 PolicyHandler를 통해 구현
 + OrderPlaced, DeliveryStarted, OrderCancelled. DeliveryCancelled 이벤트 발생시, Pub/Sub 기반으로 별도 OrderStatus 테이블에 저장
@@ -257,15 +273,55 @@ OrderApplication에서 Run 실행 후 kafka Consumer에서 이벤트 확인
 + OrderStatus 조회시 주문상태/배달상태 등의 정보를 종합적으로 알 수 있다.
 - 책 주문
 <img width="413" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160517424-7a10b354-d459-4d32-ad88-a2c8d9bf2457.png">
-![image](https://user-images.githubusercontent.com/77971366/160516279-47f052c6-005a-4ea6-9027-822a2c5dc09a.png)
+
+<img width="413" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160516279-47f052c6-005a-4ea6-9027-822a2c5dc09a.png">
+
 
 - 책 주문취소, 배달취소
-![image](https://user-images.githubusercontent.com/77971366/160516331-16237f0c-3460-435a-bae0-d00160c5e8be.png)
+<img width="413" alt="HTTP1 1 201" src="https://user-images.githubusercontent.com/77971366/160516331-16237f0c-3460-435a-bae0-d00160c5e8be.png">
 
 ## API Gateway
 Spring Gateway 서비스를 추가후 application.yaml 내에 각 마이크로서비스의 routes를 추가함
 
-![image](https://user-images.githubusercontent.com/77971366/160516379-da586d99-6e89-4d9a-9766-6ad7bc4d58dc.png)
+```
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: front
+          uri: http://localhost:8081
+          predicates:
+            - Path=/orders/**, /payments/** 
+        - id: store
+          uri: http://localhost:8082
+          predicates:
+            - Path=/storeOrders/**, /menus/** /topBooks/**
+        - id: delivery
+          uri: http://localhost:8083
+          predicates:
+            - Path=/deliveries/** 
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+```
+
 
 ## Correlation
 BookStore 프로젝트에서는 PolicyHandler에서 처리 시 어떤 건에 대한 처리인지를 구별하기 위한 Correlation-key 구현을 이벤트 클래스 안의 변수로 전달받아 서비스간 연관된 처리를 정확하게 구현하고 있다.
