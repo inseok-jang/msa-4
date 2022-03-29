@@ -224,6 +224,7 @@ mvn spring-boot:run
 
 cd delivery
 mvn spring-boot:run  
+```
 
 ## CQRS
 주문상태와 배송상태 등 총 Status에 대해서 확인 할 수 있도록 CQRS로 구현하였다.
